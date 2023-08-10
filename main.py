@@ -8,7 +8,7 @@ import os
 import pandas as pd
 import numpy as np
 import ast
-import fastapi
+from fastapi import FastAPI
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics.pairwise import linear_kernel
@@ -17,25 +17,12 @@ from sklearn.metrics.pairwise import linear_kernel
 # In[47]:
 
 
-app = fastapi.FastAPI()
-
-@app.get("/movies")
-def movies():
-  df_peliculas = pd.read_csv('movies_dataset.csv')
-  return df_peliculas
-
-@app.get("/credits")
-def credits():
-  df_creditos = pd.read_csv('credits.csv')
-  return df_creditos
-
-if __name__ == '__main__':
-  app.run(debug=True)
+app = FastAPI()
 
 # In[48]:
 
 
-df_peliculas = pd.read_csv('movies_dataset.csv')
+df_peliculas = pd.read_csv('output.csv')
 
 
 # In[49]:
@@ -183,18 +170,18 @@ def productoras_exitosas( productora: str ):
 # In[89]:
 
 
-df_creditos = pd.read_csv('credits.csv')
-df_creditos['equipo_tecnico'] = df_creditos['crew'].apply(lambda x: ast.literal_eval(x))
-directores = []
-for idx, pelicula in enumerate(df_creditos['equipo_tecnico']):
-  dir_pelicula = []
-  for miembro in pelicula:
-    if miembro['job'] == 'Director':
-      dir_pelicula.append(miembro['name'].lower())
-  directores.append(dir_pelicula)
-df_creditos['directores'] = directores
-df_peliculas['id'] = df_peliculas['id'].astype(int)
-df_peliculas = df_peliculas.merge(df_creditos[['id', 'directores']], on='id', how='left')
+# df_creditos = pd.read_csv('credits.csv')
+# df_creditos['equipo_tecnico'] = df_creditos['crew'].apply(lambda x: ast.literal_eval(x))
+# directores = []
+# for idx, pelicula in enumerate(df_creditos['equipo_tecnico']):
+#   dir_pelicula = []
+#   for miembro in pelicula:
+#     if miembro['job'] == 'Director':
+#       dir_pelicula.append(miembro['name'].lower())
+#   directores.append(dir_pelicula)
+# df_creditos['directores'] = directores
+# df_peliculas['id'] = df_peliculas['id'].astype(int)
+# df_peliculas = df_peliculas.merge(df_creditos[['id', 'directores']], on='id', how='left')
 
 
 # In[131]:
@@ -232,7 +219,6 @@ def get_director( nombre_director: str ):
 # In[133]:
 
 
-get_director('steven spielberg')
 
 
 # In[143]:
