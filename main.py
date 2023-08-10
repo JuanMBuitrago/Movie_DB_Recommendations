@@ -23,7 +23,7 @@ app = FastAPI()
 # In[48]:
 
 
-df_peliculas = pd.read_csv('Datasets\\movies_dataset.csv')
+df_peliculas = pd.read_csv('movies_dataset.csv')
 
 
 # In[49]:
@@ -171,7 +171,7 @@ def productoras_exitosas( productora: str ):
 # In[89]:
 
 
-df_creditos = pd.read_csv('Datasets\\credits.csv')
+df_creditos = pd.read_csv('credits.csv')
 df_creditos['equipo_tecnico'] = df_creditos['crew'].apply(lambda x: ast.literal_eval(x))
 directores = []
 for idx, pelicula in enumerate(df_creditos['equipo_tecnico']):
