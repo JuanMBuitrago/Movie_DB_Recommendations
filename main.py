@@ -17,8 +17,20 @@ from sklearn.metrics.pairwise import linear_kernel
 # In[47]:
 
 
-app = FastAPI()
+app = fastapi.FastAPI()
 
+@app.get("/movies")
+def movies():
+  df_peliculas = pd.read_csv('movies_dataset.csv')
+  return df_peliculas
+
+@app.get("/credits")
+def credits():
+  df_creditos = pd.read_csv('credits.csv')
+  return df_creditos
+
+if __name__ == '__main__':
+  app.run(debug=True)
 
 # In[48]:
 
