@@ -74,7 +74,7 @@ df_peliculas['return'] = np.where(df_peliculas['budget'] != 0, df_peliculas['rev
 
 
 columnas_innecesarias = ['video', 'imdb_id', 'adult', 'original_title', 'poster_path', 'homepage']
-df_peliculas.drop(columnas_innecesarias, axis=1, inplace=True)
+#df_peliculas.drop(columnas_innecesarias, axis=1, inplace=True)
 
 
 # In[54]:
