@@ -204,7 +204,7 @@ def get_director( nombre_director: str ):
     budget_pelicula = df_director['budget']
     retorno_pelicula = df_director['budget']
     num_peliculas = len(df_director['return'])
-    retorno_total_director =df_director['revenue'].sum() / df_director['budget'].sum()
+    retorno_total_director = ingresos_pelicula.sum() / num_peliculas
     return {
         'director': nombre_director.title(),
         'retorno_total_director': retorno_total_director,
