@@ -186,7 +186,7 @@ def productoras_exitosas( productora: str ):
 
 # In[131]:
 
-df_creditos['directores'] = df_creditos['directores'].apply(lambda x: x.lower())
+df_peliculas['directores'] = df_peliculas['directores'].apply(lambda x: x.lower())
 def director_presente(pelicula, nombre_director: str):
     if isinstance(pelicula, list):
         return nombre_director in pelicula
