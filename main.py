@@ -194,21 +194,23 @@ def director_presente(pelicula, nombre_director: str):
     return False
 
 @app.get('/get_director/{nombre_director}')
-def get_director(nombre_director: str):
-    nombre_director = nombre_director.lower()
+def get_director( nombre_director: str ):
+    ''' Se ingresa el nombre de un director que se encuentre dentro de un dataset debiendo devolver el éxito del mismo medido a través del retorno. 
+    Además, deberá devolver el nombre de cada película con la fecha de lanzamiento, retorno individual, costo y ganancia de la misma. En formato lista'''
+    nombre_director = nombre_director.lower()  
     df_director = df_peliculas[df_peliculas['directores'].apply(lambda x: director_presente(x, nombre_director))]
-    num_peliculas = len(df_director)
-    if num_peliculas == 0:
-        return {'message': 'Director not found'}
+    peliculas = df_director['title']
+    anio = df_director['release_year']
     ingresos_pelicula = df_director['revenue']
     budget_pelicula = df_director['budget']
-    retorno_pelicula = ingresos_pelicula / budget_pelicula  # Corrected
-    retorno_total_director = ingresos_pelicula.sum() / budget_pelicula.sum()  # Corrected
+    retorno_pelicula = df_director['budget']
+    num_peliculas = len(df_director['return'])
+    retorno_total_director = df_director['revenue'].sum() / df_director['budget'].sum()
     return {
         'director': nombre_director.title(),
         'retorno_total_director': retorno_total_director,
-        'peliculas': df_director['title'].tolist(),
-        'anio': df_director['release_year'].tolist(),
+        'peliculas': peliculas.tolist(),
+        'anio': anio.tolist(),
         'retorno_pelicula': retorno_pelicula.tolist(),
         'budget_pelicula': budget_pelicula.tolist(),
         'revenue_pelicula': ingresos_pelicula.tolist()
